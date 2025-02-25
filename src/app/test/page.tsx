@@ -1,5 +1,11 @@
 import { getPublishedPosts } from '@/lib/notion'
 
+type NotionError = {
+    message: string
+    name: string
+    stack?: string
+}
+
 export default async function TestPage() {
     try {
         const posts = await getPublishedPosts()
@@ -28,14 +34,16 @@ export default async function TestPage() {
                 </div>
             </div>
         )
-    } catch (error: any) {
+    } catch (error) {
+        const notionError = error as NotionError
+
         return (
             <div className="p-8">
                 <h1 className="text-2xl font-bold mb-4">Notion Integration Test</h1>
 
                 <div className="bg-red-100 dark:bg-red-900 p-4 rounded">
                     <h2 className="font-semibold text-red-800 dark:text-red-200">❌ Error connecting to Notion</h2>
-                    <pre className="mt-2 text-sm">{error.message}</pre>
+                    <pre className="mt-2 text-sm">{notionError.message}</pre>
                 </div>
             </div>
         )

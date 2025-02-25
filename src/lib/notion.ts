@@ -80,8 +80,8 @@ export async function getPublishedPosts() {
                     slug: props.Slug?.rich_text[0]?.plain_text || pageObj.id,
                     description: props.Description?.rich_text[0]?.plain_text || 'No description available.',
                 }
-            } catch (error) {
-                // Only log critical errors
+            } catch {
+                // Removed unused error parameter
                 console.error('Failed to process post:', pageObj.id)
                 return {
                     id: pageObj.id,
@@ -93,7 +93,8 @@ export async function getPublishedPosts() {
                 }
             }
         })
-    } catch (error) {
+    } catch {
+        // Removed unused error parameter
         console.error('Failed to fetch posts from Notion')
         return []
     }
@@ -132,8 +133,10 @@ export async function getPostBySlug(slug: string) {
             metadata,
             markdown: markdown.parent,
         }
-    } catch (error) {
-        console.error('Failed to fetch post:', slug)
-        throw error
+    } catch {
+        // Removed unused error parameter and improved error handling
+        const errorMessage = `Failed to fetch post: ${slug}`
+        console.error(errorMessage)
+        throw new Error(errorMessage)
     }
 }

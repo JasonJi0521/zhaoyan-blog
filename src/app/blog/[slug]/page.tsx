@@ -2,6 +2,7 @@ import { getPostBySlug } from '@/lib/notion'
 import { CalendarDays } from 'lucide-react'
 import Markdown from 'react-markdown'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
     try {
@@ -31,9 +32,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 {/* Navigation Bar */}
                 <nav className="border-b mb-8">
                     <div className="container mx-auto px-4 py-4">
-                        <a href="/" className="text-xl font-bold">
+                        <Link href="/" className="text-xl font-bold">
                             My Blog
-                        </a>
+                        </Link>
                     </div>
                 </nav>
 

@@ -15,7 +15,7 @@ type Post = {
 }
 
 export default async function Home() {
-  const posts = await getPublishedPosts()
+  const posts: Post[] = await getPublishedPosts()
 
   // Get one post from each category for featured posts
   const aiTechPost = posts.find(post => post.category === 'AI & Tech')
@@ -76,9 +76,7 @@ export default async function Home() {
             </CardHeader>
             <CardContent className="flex-grow">
               <p className="text-muted-foreground leading-relaxed">
-                Hi there! I'm Zhaoyan Ji, a passionate explorer at the intersection of technology, finance, and personal
-                growth. Through this blog, I share my insights and experiences in artificial intelligence, market
-                analysis, and life's meaningful moments. Join me as we navigate these fascinating domains together.
+                {"Hi there! I'm Zhaoyan Ji, a passionate explorer at the intersection of technology, finance, and personal growth. Through this blog, I share my insights and experiences in artificial intelligence, market analysis, and life's meaningful moments. Join me as we navigate these fascinating domains together."}
               </p>
             </CardContent>
             <CardFooter className="flex justify-end pt-4 border-t">
