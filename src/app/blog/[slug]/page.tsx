@@ -115,7 +115,7 @@ export default async function BlogPost({ params }: PageProps) {
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none">
+                                <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none dark:prose-invert">
                                     <Markdown>{markdown}</Markdown>
                                 </div>
                             </CardContent>

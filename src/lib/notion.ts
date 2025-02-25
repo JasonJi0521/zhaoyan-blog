@@ -127,6 +127,7 @@ export async function getPostBySlug(slug: string) {
             date: props.Date?.date?.start || new Date().toISOString().split('T')[0],
             category: props.Category?.select?.name || 'Uncategorized',
             slug: props.Slug?.rich_text[0]?.plain_text || page.id,
+            description: props.Description?.rich_text[0]?.plain_text || 'No description available.',
         }
 
         return {
@@ -134,7 +135,6 @@ export async function getPostBySlug(slug: string) {
             markdown: markdown.parent,
         }
     } catch {
-        // Removed unused error parameter and improved error handling
         const errorMessage = `Failed to fetch post: ${slug}`
         console.error(errorMessage)
         throw new Error(errorMessage)
