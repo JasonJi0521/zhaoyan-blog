@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             title: metadata.title,
             description: metadata.description,
         }
-    } catch (error) {
+    } catch {
         return {
             title: 'Post Not Found',
             description: 'The blog post could not be found',
@@ -124,7 +124,7 @@ export default async function BlogPost({ params }: PageProps) {
                 </main>
             </div>
         )
-    } catch (error) {
+    } catch {
         return notFound()
     }
 }
