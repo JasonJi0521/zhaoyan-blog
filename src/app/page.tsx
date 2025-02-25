@@ -2,29 +2,28 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { CalendarDays, ChevronRight } from "lucide-react"
+import { CalendarDays, ChevronRight } from 'lucide-react'
+import { getPublishedPosts } from '@/lib/notion'
 
-export default function Home() {
-  const posts = [
-    {
-      title: "Getting Started with Web Development",
-      date: "2024-02-21",
-      excerpt: "Learn the fundamentals of web development and start your journey as a developer.",
-      slug: "getting-started",
-    },
-    {
-      title: "Building Modern Applications",
-      date: "2024-02-20",
-      excerpt: "Explore the latest technologies and best practices for building modern web applications.",
-      slug: "modern-apps",
-    },
-    {
-      title: "The Future of Technology",
-      date: "2024-02-19",
-      excerpt: "A look into emerging technologies and their potential impact on our future.",
-      slug: "future-tech",
-    },
-  ]
+type Post = {
+  id: string
+  title: string
+  date: string
+  category: string
+  slug: string
+  description: string
+}
+
+export default async function Home() {
+  const posts = await getPublishedPosts()
+
+  // Get one post from each category for featured posts
+  const aiTechPost = posts.find(post => post.category === 'AI & Tech')
+  const investmentPost = posts.find(post => post.category === 'Investment & Market')
+  const lifePost = posts.find(post => post.category === 'Life & Beyond')
+
+  // Check if no posts are available
+  const hasNoPosts = !aiTechPost && !investmentPost && !lifePost
 
   return (
     <main className="min-h-screen">
@@ -48,60 +47,138 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div className="space-y-6">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">Welcome to My Personal Blog</h1>
-            <p className="text-xl text-muted-foreground">
-              Sharing thoughts and experiences about technology, development, and life.
-            </p>
-            <Button size="lg">
-              Read Latest Posts
-              <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
+      {/* Hero Section with Photo and About */}
+      <section className="container mx-auto px-4 py-12">
+        <div className="grid md:grid-cols-[300px_1fr] gap-8 items-start">
+          {/* Photo Column */}
+          <div className="flex flex-col items-center space-y-8">
+            <div className="relative w-64 h-64">
+              <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-primary/10">
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821232934.jpg-A6dJEzI5ROjgSL0GbHelt39ZAKFL1B.jpeg"
+                  alt="Profile photo"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+            <div className="text-center w-full">
+              <h1 className="text-3xl font-bold tracking-tight">Zhaoyan Ji</h1>
+              <p className="text-xl text-muted-foreground mt-2">Welcome to my blog</p>
+            </div>
           </div>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-xl">
-            <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240821232934.jpg-A6dJEzI5ROjgSL0GbHelt39ZAKFL1B.jpeg"
-              alt="Profile photo"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
+
+          {/* About Section */}
+          <Card className="h-full flex flex-col">
+            <CardHeader>
+              <CardTitle>About Me</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <p className="text-muted-foreground leading-relaxed">
+                Hi there! I'm Zhaoyan Ji, a passionate explorer at the intersection of technology, finance, and personal
+                growth. Through this blog, I share my insights and experiences in artificial intelligence, market
+                analysis, and life's meaningful moments. Join me as we navigate these fascinating domains together.
+              </p>
+            </CardContent>
+            <CardFooter className="flex justify-end pt-4 border-t">
+              <Link href="/blog">
+                <Button size="lg" className="transition-all hover:translate-x-1">
+                  Read Latest Posts
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </CardFooter>
+          </Card>
         </div>
       </section>
 
-      {/* Blog Posts */}
-      <section className="container mx-auto px-4 py-16 space-y-8">
-        <h2 className="text-3xl font-bold tracking-tighter">Latest Posts</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
-            <Card key={post.slug}>
-              <CardHeader>
-                <CardTitle>{post.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{post.excerpt}</p>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <CalendarDays className="mr-2 h-4 w-4" />
-                  {post.date}
-                </div>
-                <Link href={`/blog/${post.slug}`}>
-                  <Button variant="ghost" size="sm">
-                    Read More
-                    <ChevronRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+      {/* Featured Posts */}
+      <section className="container mx-auto px-4 py-12">
+        <h2 className="text-2xl font-bold mb-8">Featured Posts</h2>
+        {hasNoPosts ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No posts available at the moment. Check back soon!</p>
+          </div>
+        ) : (
+          <div className="grid gap-8 md:grid-cols-3">
+            {/* AI & Tech Post */}
+            {aiTechPost && (
+              <Card className="group relative flex flex-col overflow-hidden transition-all hover:shadow-lg border-2 border-[#002FA7]/20 hover:border-[#002FA7]">
+                <CardHeader className="flex-grow space-y-4">
+                  <div className="text-sm font-medium text-[#002FA7]">{aiTechPost.category}</div>
+                  <CardTitle className="line-clamp-2 transition-colors group-hover:text-[#002FA7]">
+                    {aiTechPost.title}
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{aiTechPost.description}</p>
+                </CardHeader>
+                <CardFooter className="flex justify-between border-t bg-muted/50">
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <CalendarDays className="mr-2 h-4 w-4" />
+                    {new Date(aiTechPost.date).toLocaleDateString()}
+                  </div>
+                  <Link href={`/blog/${aiTechPost.slug}`}>
+                    <Button variant="ghost" size="sm" className="group-hover:text-[#002FA7]">
+                      Read More
+                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            )}
+
+            {/* Investment & Market Post */}
+            {investmentPost && (
+              <Card className="group relative flex flex-col overflow-hidden transition-all hover:shadow-lg border-2 border-[#B8860B]/20 hover:border-[#B8860B]">
+                <CardHeader className="flex-grow space-y-4">
+                  <div className="text-sm font-medium text-[#B8860B]">{investmentPost.category}</div>
+                  <CardTitle className="line-clamp-2 transition-colors group-hover:text-[#B8860B]">
+                    {investmentPost.title}
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{investmentPost.description}</p>
+                </CardHeader>
+                <CardFooter className="flex justify-between border-t bg-muted/50">
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <CalendarDays className="mr-2 h-4 w-4" />
+                    {new Date(investmentPost.date).toLocaleDateString()}
+                  </div>
+                  <Link href={`/blog/${investmentPost.slug}`}>
+                    <Button variant="ghost" size="sm" className="group-hover:text-[#B8860B]">
+                      Read More
+                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            )}
+
+            {/* Life & Beyond Post */}
+            {lifePost && (
+              <Card className="group relative flex flex-col overflow-hidden transition-all hover:shadow-lg border-2 border-[#2AAA8A]/20 hover:border-[#2AAA8A]">
+                <CardHeader className="flex-grow space-y-4">
+                  <div className="text-sm font-medium text-[#2AAA8A]">{lifePost.category}</div>
+                  <CardTitle className="line-clamp-2 transition-colors group-hover:text-[#2AAA8A]">
+                    {lifePost.title}
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{lifePost.description}</p>
+                </CardHeader>
+                <CardFooter className="flex justify-between border-t bg-muted/50">
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <CalendarDays className="mr-2 h-4 w-4" />
+                    {new Date(lifePost.date).toLocaleDateString()}
+                  </div>
+                  <Link href={`/blog/${lifePost.slug}`}>
+                    <Button variant="ghost" size="sm" className="group-hover:text-[#2AAA8A]">
+                      Read More
+                      <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            )}
+          </div>
+        )}
       </section>
     </main>
   )
 }
-
