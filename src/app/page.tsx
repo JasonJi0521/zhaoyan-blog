@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { CalendarDays, ChevronRight } from 'lucide-react'
+import { CalendarDays, ChevronRight, Linkedin, Mail } from 'lucide-react'
 import { getPublishedPosts } from '@/lib/notion'
 
 type Post = {
@@ -15,15 +15,15 @@ type Post = {
 }
 
 export default async function Home() {
-  const posts: Post[] = await getPublishedPosts()
+  const posts: Post[] = await getPublishedPosts();
 
   // Get one post from each category for featured posts
-  const aiTechPost = posts.find(post => post.category === 'AI & Tech')
-  const investmentPost = posts.find(post => post.category === 'Investment & Market')
-  const lifePost = posts.find(post => post.category === 'Life & Beyond')
+  const aiTechPost = posts.find(post => post.category === 'AI & Tech');
+  const investmentPost = posts.find(post => post.category === 'Investment & Market');
+  const lifePost = posts.find(post => post.category === 'Life & Beyond');
 
   // Check if no posts are available
-  const hasNoPosts = !aiTechPost && !investmentPost && !lifePost
+  const hasNoPosts = !aiTechPost && !investmentPost && !lifePost;
 
   return (
     <main className="min-h-screen">
@@ -31,7 +31,7 @@ export default async function Home() {
       <nav className="border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="text-xl font-bold">
-            My Blog
+            Main page
           </Link>
           <div className="space-x-6">
             <Link href="/blog" className="hover:text-primary">
@@ -65,7 +65,28 @@ export default async function Home() {
             </div>
             <div className="text-center w-full">
               <h1 className="text-3xl font-bold tracking-tight">Zhaoyan Ji</h1>
-              <p className="text-xl text-muted-foreground mt-2">Welcome to my blog</p>
+              {/* Social Links Section */}
+              <div className="flex flex-col space-y-2 mt-4 items-center">
+                {/* LinkedIn */}
+                <a href="https://www.linkedin.com/in/zhaoyanji0521/" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center hover:text-primary transition-colors">
+                  <Linkedin className="h-5 w-5 mr-2" />
+                  <span>LinkedIn</span>
+                </a>
+
+                {/* Email */}
+                <div className="flex items-center">
+                  <Mail className="h-5 w-5 mr-2 text-primary" />
+                  <span>zhaoyanji0521@gmail.com</span>
+                </div>
+
+                {/* Contact page link */}
+                <p className="text-sm text-muted-foreground mt-1">
+                  <Link href="/contact" className="hover:underline">
+                    See Contact page for more
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
 
