@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     Linkedin,
-    Instagram
+    Instagram,
+    Mail,
 } from "lucide-react";
 
 export default function ContactPage() {
@@ -12,69 +14,62 @@ export default function ContactPage() {
         {
             name: "LinkedIn",
             icon: <Linkedin className="h-6 w-6" />,
-            url: "https://www.linkedin.com/in/zhaoyanji0521/", // Replace with your actual LinkedIn profile
+            url: "https://www.linkedin.com/in/zhaoyanji0521/",
             color: "#0077B5",
             description: "Connect with me professionally on LinkedIn",
         },
         {
             name: "Instagram",
             icon: <Instagram className="h-6 w-6" />,
-            url: "https://www.instagram.com/zhaoyan_jjj/", // Replace with your actual Instagram handle
+            url: "https://www.instagram.com/zhaoyan_jjj/",
             color: "#E1306C",
             description: "Check out my photos and stories",
         },
         {
             name: "Gmail",
-            // Using a custom image for Gmail logo
-            icon: (
-                <div className="h-6 w-6 flex items-center justify-center">
-                    <img
-                        src="/images/gmail-logo.png"
-                        alt="Gmail"
-                        className="h-6 w-6 object-contain"
-                    />
-                </div>
-            ),
-            url: "#", // No direct URL
-            color: "#D9D9D9",
+            icon: <Mail className="h-6 w-6" />,
+            url: "#",
+            color: "#EA4335",
             description: "Send me an email directly",
-            contactId: "zhaoyanji0521@gmail.com", // Replace with your actual email
+            contactId: "zhaoyanji0521@gmail.com",
             idLabel: "e-mail:",
         },
         {
             name: "Xiaohongshu",
-            // Using a custom image for Rednote logo
             icon: (
                 <div className="h-6 w-6 flex items-center justify-center">
-                    <img
+                    <Image
                         src="/images/rednote-logo.png"
                         alt="Xiaohongshu"
-                        className="h-6 w-6 object-contain"
+                        width={24}
+                        height={24}
+                        className="object-contain"
                     />
                 </div>
             ),
-            url: "#", // No direct URL
+            url: "#",
             color: "#FF5252",
             description: "Follow my day-to-day thoughts on Red",
-            contactId: "634931410", // Replace with your actual Rednote ID
+            contactId: "634931410",
             idLabel: "Xiaohongshu ID:",
         },
         {
             name: "WeChat",
-            // Using a custom image for WeChat logo
             icon: (
                 <div className="h-6 w-6 flex items-center justify-center">
-                    <img
+                    <Image
                         src="/images/wechat-logo.png"
                         alt="WeChat"
-                        className="h-6 w-6 object-contain"
+                        width={24}
+                        height={24}
+                        className="object-contain"
                     />
                 </div>
             ),
-            url: "#", // No direct URL
+            url: "#",
             color: "#09B83E",
             description: "Add me on WeChat with my ID below",
-            contactId: "Zhaoyan_Ji", // Replace with your actual WeChat ID
+            contactId: "Zhaoyan_Ji",
             idLabel: "WeChat ID:",
         },
     ];
@@ -107,10 +102,10 @@ export default function ContactPage() {
                     <h1 className="text-4xl font-bold mb-8">Get in Touch</h1>
 
                     <p className="text-muted-foreground mb-12">
-                        I'd love to connect with you! Feel free to reach out through any of
+                        I&apos;d love to connect with you! Feel free to reach out through any of
                         the platforms below. Whether you have questions about my blog posts,
                         want to discuss collaboration opportunities, or just want to say hello,
-                        I'm always open to new connections.
+                        I&apos;m always open to new connections.
                     </p>
 
                     <div className="grid gap-6 md:grid-cols-2">
