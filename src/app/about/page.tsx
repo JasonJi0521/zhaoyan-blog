@@ -53,12 +53,12 @@ export default function About() {
                     </CardHeader>
                     <CardContent>
                         <p className="text-muted-foreground leading-relaxed">
-                            Hi there! I'm Zhaoyan Ji, a passionate explorer at the intersection of technology, finance, and personal
+                            Hi there! I&apos;m Zhaoyan Ji, a passionate explorer at the intersection of technology, finance, and personal
                             growth.
                             <br />
                             <br />
                             With a background in Computer Science from Peking University and an MBA from Columbia Business School,
-                            I've built a career that spans consulting, investment analysis, and AI research.
+                            I&apos;ve built a career that spans consulting, investment analysis, and AI research.
                             <br />
                             <br />
                             My professional journey has taken me from BCG where I developed strategic solutions across various
@@ -66,7 +66,7 @@ export default function About() {
                             Research product with my consulting/ finance knowledge.
                             <br />
                             <br />
-                            I'm passionate about leveraging technology and business insights to drive innovation and create meaningful
+                            I&apos;m passionate about leveraging technology and business insights to drive innovation and create meaningful
                             impact.
                         </p>
                     </CardContent>
@@ -104,7 +104,7 @@ export default function About() {
                             </div>
                             <p className="text-sm text-muted-foreground">New York City Metropolitan Area · Remote</p>
                             <p className="text-sm">
-                                Contributed my Consulting/Finance expertise to OpenAI's Deep Research product – an AI tool pushing the
+                                Contributed my Consulting/Finance expertise to OpenAI&apos;s Deep Research product - an AI tool pushing the
                                 boundaries of research and analysis
                             </p>
                         </CardHeader>
