@@ -97,7 +97,15 @@ export default async function Home() {
             </CardHeader>
             <CardContent className="flex-grow">
               <p className="text-muted-foreground leading-relaxed">
-                {"Hi there! I'm Zhaoyan Ji, a passionate explorer at the intersection of technology, finance, and personal growth. Through this blog, I share my insights and experiences in artificial intelligence, market analysis, and life's meaningful moments. Join me as we navigate these fascinating domains together."}
+                Hi there! I'm Zhaoyan Ji, a passionate explorer at the intersection of technology, finance, and personal growth.
+                <br /><br />
+                Through this blog, I share my insights and experiences in the following areas:
+                <br /><br />
+                1. Tech & AI: industry developments and new product launch, reflection on key players' competitive strategies
+                <br /><br />
+                2. Investment & Market: individual stock investment analysis, investment methodology reflection, and macro market observation
+                <br /><br />
+                3. Life & Beyond: reflections on travel, personal growth, and the pursuit of meaningful experiences
               </p>
             </CardContent>
             <CardFooter className="flex justify-end pt-4 border-t">

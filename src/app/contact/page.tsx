@@ -23,7 +23,7 @@ export default function ContactPage() {
             icon: <Instagram className="h-6 w-6" />,
             url: "https://www.instagram.com/zhaoyan_jjj/",
             color: "#E1306C",
-            description: "Check out my photos and stories",
+            description: "Check out my personal life updates on IG",
         },
         {
             name: "Gmail",
@@ -32,7 +32,7 @@ export default function ContactPage() {
             color: "#EA4335",
             description: "Send me an email directly",
             contactId: "zhaoyanji0521@gmail.com",
-            idLabel: "e-mail:",
+            idLabel: "E-mail:",
         },
         {
             name: "Xiaohongshu",
@@ -49,7 +49,7 @@ export default function ContactPage() {
             ),
             url: "#",
             color: "#FF5252",
-            description: "Follow my day-to-day thoughts on Red",
+            description: "Follow my day-to-day thoughts on RedNote",
             contactId: "634931410",
             idLabel: "Xiaohongshu ID:",
         },
@@ -68,7 +68,7 @@ export default function ContactPage() {
             ),
             url: "#",
             color: "#09B83E",
-            description: "Add me on WeChat with my ID below",
+            description: "Connet with me on WeChat",
             contactId: "Zhaoyan_Ji",
             idLabel: "WeChat ID:",
         },
@@ -80,7 +80,7 @@ export default function ContactPage() {
             <nav className="border-b">
                 <div className="container mx-auto px-4 py-4 flex items-center justify-between">
                     <Link href="/" className="text-xl font-bold">
-                        My Blog
+                        Main page
                     </Link>
                     <div className="space-x-6">
                         <Link href="/blog" className="hover:text-primary">
@@ -102,10 +102,9 @@ export default function ContactPage() {
                     <h1 className="text-4xl font-bold mb-8">Get in Touch</h1>
 
                     <p className="text-muted-foreground mb-12">
-                        I&apos;d love to connect with you! Feel free to reach out through any of
-                        the platforms below. Whether you have questions about my blog posts,
-                        want to discuss collaboration opportunities, or just want to say hello,
-                        I&apos;m always open to new connections.
+                        I&apos;d love to connect with you! I regularly share my insights here, on LinkedIn and RedNote.
+                        And I respond to personal messages on Email, Instagram, and WeChat.
+                        Feel free to reach out to discuss ideas or for collaboration.
                     </p>
 
                     <div className="grid gap-6 md:grid-cols-2">
