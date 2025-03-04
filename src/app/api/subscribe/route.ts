@@ -19,11 +19,11 @@ export async function POST(request: Request) {
 
         // Get and validate environment variables
         let FORM_ID: string
-        let API_KEY: string
+        let API_SECRET: string
 
         try {
             FORM_ID = getRequiredEnvVar("CONVERTKIT_FORM_ID")
-            API_KEY = getRequiredEnvVar("CONVERTKIT_API_KEY")
+            API_SECRET = getRequiredEnvVar("CONVERTKIT_API_SECRET")
         } catch (error) {
             console.error("Environment variable error:", error)
             return NextResponse.json({ message: "Server configuration error" }, { status: 500 })
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                api_key: API_KEY,
+                api_key: API_SECRET,
                 email,
             }),
         })
