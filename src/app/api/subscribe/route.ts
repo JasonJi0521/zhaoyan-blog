@@ -1,5 +1,14 @@
 import { NextResponse } from "next/server"
 
+// Add type safety for environment variables
+const getRequiredEnvVar = (name: string): string => {
+    const value = process.env[name]
+    if (!value) {
+        throw new Error(`Missing required environment variable: ${name}`)
+    }
+    return value
+}
+
 export async function POST(request: Request) {
     try {
         const { email } = await request.json()
@@ -8,15 +17,21 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: "Email is required" }, { status: 400 })
         }
 
-        // Get API credentials from environment variables
-        const FORM_ID = process.env.CONVERTKIT_FORM_ID
-        const API_KEY = process.env.CONVERTKIT_API_KEY
+        // Get and validate environment variables
+        let FORM_ID: string
+        let API_KEY: string
 
-        if (!FORM_ID || !API_KEY) {
-            return NextResponse.json({ message: "ConvertKit configuration is missing" }, { status: 500 })
+        try {
+            FORM_ID = getRequiredEnvVar("CONVERTKIT_FORM_ID")
+            API_KEY = getRequiredEnvVar("CONVERTKIT_API_KEY")
+        } catch (error) {
+            console.error("Environment variable error:", error)
+            return NextResponse.json({ message: "Server configuration error" }, { status: 500 })
         }
 
         const API_URL = `https://api.convertkit.com/v3/forms/${FORM_ID}/subscribe`
+
+        console.log("Attempting to subscribe with form ID:", FORM_ID)
 
         const response = await fetch(API_URL, {
             method: "POST",
@@ -31,8 +46,15 @@ export async function POST(request: Request) {
 
         const data = await response.json()
 
+        // Log response for debugging (excluding sensitive data)
+        console.log("ConvertKit API response status:", response.status)
+        console.log("ConvertKit API response:", {
+            ...data,
+            api_key: "[REDACTED]",
+        })
+
         if (!response.ok) {
-            throw new Error(data.message || "Something went wrong")
+            throw new Error(data.message || `API error: ${response.status}`)
         }
 
         return NextResponse.json({ message: "Successfully subscribed to the newsletter" }, { status: 201 })
