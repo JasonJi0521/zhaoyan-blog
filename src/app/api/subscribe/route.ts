@@ -39,7 +39,7 @@ export async function POST(request: Request) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                api_key: API_SECRET,
+                api_secret: API_SECRET,
                 email,
             }),
         })
