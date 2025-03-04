@@ -57,7 +57,7 @@ export default async function BlogPost({ params }: PageProps) {
                 <nav className="border-b">
                     <div className="container mx-auto px-4 py-4 flex items-center justify-between">
                         <Link href="/" className="text-xl font-bold">
-                            My Blog
+                            Main page
                         </Link>
                         <div className="space-x-6">
                             <Link href="/blog" className="hover:text-primary">

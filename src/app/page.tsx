@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { CalendarDays, ChevronRight, Linkedin, Mail } from 'lucide-react'
 import { getPublishedPosts } from '@/lib/notion'
+import NewsletterSubscription from "@/components/newsletter-subscription"
 
 type Post = {
   id: string
@@ -119,6 +120,14 @@ export default async function Home() {
           </Card>
         </div>
       </section>
+
+      {/* Newsletter Section - ADD THIS SECTION */}
+      <section className="container mx-auto px-4 py-12 border-t">
+        <div className="max-w-xl mx-auto">
+          <NewsletterSubscription />
+        </div>
+      </section>
+      {/* End of Newsletter Section */}
 
       {/* Featured Posts */}
       <section className="container mx-auto px-4 py-12">
