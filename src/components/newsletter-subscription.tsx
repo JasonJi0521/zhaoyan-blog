@@ -33,10 +33,6 @@ export default function NewsletterSubscription() {
                 return
             }
 
-            // Real API call code remains the same...
-            const FORM_ID = "YOUR_FORM_ID"
-            const API_URL = `https://api.convertkit.com/v3/forms/${FORM_ID}/subscribe`
-
             const response = await fetch("/api/subscribe", {
                 method: "POST",
                 headers: {
