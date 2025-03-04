@@ -9,6 +9,27 @@ const getRequiredEnvVar = (name: string): string => {
     return value
 }
 
+// Define interfaces for ConvertKit API responses
+interface ConvertKitErrorResponse {
+    message?: string
+    error?: string
+    errors?: Record<string, string[]>
+    [key: string]: unknown
+}
+
+interface ConvertKitSuccessResponse {
+    subscription: {
+        id: number
+        state: string
+        created_at: string
+        source: string
+        [key: string]: unknown
+    }
+    [key: string]: unknown
+}
+
+type ConvertKitResponse = ConvertKitSuccessResponse | ConvertKitErrorResponse
+
 export async function POST(request: Request) {
     try {
         console.log("=== NEWSLETTER SUBSCRIPTION DEBUGGING ===")
@@ -16,8 +37,8 @@ export async function POST(request: Request) {
         // Step 1: Parse request and validate email
         let email: string
         try {
-            const body = await request.json()
-            email = body.email
+            const body = (await request.json()) as { email?: string }
+            email = body.email || ""
             console.log("Request received with email:", email ? `${email.substring(0, 3)}...` : "undefined")
 
             if (!email) {
@@ -89,9 +110,9 @@ export async function POST(request: Request) {
         }
 
         // Step 5: Parse and validate response
-        let data: any
+        let data: ConvertKitResponse
         try {
-            data = await response.json()
+            data = (await response.json()) as ConvertKitResponse
             console.log("Response data:", JSON.stringify(data))
         } catch (error) {
             console.error("Error parsing API response:", error)
@@ -111,7 +132,8 @@ export async function POST(request: Request) {
             console.error("Error details:", data)
 
             // Try to extract a meaningful error message
-            const errorMessage = data.message || data.error || `API error: ${response.status}`
+            const errorMessage =
+                "message" in data ? data.message : "error" in data ? data.error : `API error: ${response.status}`
 
             return NextResponse.json(
                 {
