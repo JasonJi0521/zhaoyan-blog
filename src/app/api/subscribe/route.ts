@@ -9,8 +9,8 @@ export async function POST(request: Request) {
         }
 
         // Get API credentials from environment variables
-        const FORM_ID = `cdb738b07b`
-        const API_KEY = `UwzJZ9uzDI_3uws7XvVmSw`
+        const FORM_ID = process.env.CONVERTKIT_FORM_ID
+        const API_KEY = process.env.CONVERTKIT_API_KEY
 
         if (!FORM_ID || !API_KEY) {
             return NextResponse.json({ message: "ConvertKit configuration is missing" }, { status: 500 })
