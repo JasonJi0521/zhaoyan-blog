@@ -9,24 +9,6 @@ const getRequiredEnvVar = (name: string): string => {
     return value
 }
 
-// Define interfaces for ConvertKit API responses
-interface ConvertKitErrorResponse {
-    error?: string
-    message?: string
-    [key: string]: unknown
-}
-
-interface ConvertKitSuccessResponse {
-    subscription?: {
-        id: number
-        state: string
-        [key: string]: unknown
-    }
-    [key: string]: unknown
-}
-
-type ConvertKitResponse = ConvertKitSuccessResponse | ConvertKitErrorResponse
-
 export async function POST(request: Request) {
     try {
         const { email } = await request.json()
