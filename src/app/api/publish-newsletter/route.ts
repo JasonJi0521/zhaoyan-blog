@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPostContent } from '@/lib/notion'; // Assuming you have this function
+import { getPostContent } from '@/lib/notion';
 import { sendNewsletterForPost } from '@/lib/convertkit';
 import * as crypto from 'crypto';
 
@@ -27,14 +27,10 @@ export async function POST(request: Request) {
         }
 
         // Extract the page ID from the Notion webhook payload
-        // For page.update events, the structure is:
-        // { "object": "page", "id": "page-id", "webhook_id": "...", "request_id": "...", ... }
-
-        // Check if this is the right event type
         if (body.webhook_id && body.object === 'page' && body.id) {
             const pageId = body.id;
 
-            // Get the full post content from Notion
+            // Get the post content
             const post = await getPostContent(pageId);
 
             // Skip if not published or not marked for newsletter
@@ -57,11 +53,16 @@ export async function POST(request: Request) {
             console.log('Unhandled webhook event type:', body);
             return NextResponse.json({ message: 'Unhandled event type', status: 'skipped' });
         }
-
     } catch (error) {
         console.error('Error processing webhook:', error);
+
+        // Safely handle the error - casting to any known error type with a message property
+        const errorMessage = error instanceof Error
+            ? error.message
+            : 'Unknown error occurred';
+
         return NextResponse.json(
-            { error: 'Failed to process webhook', details: error.message },
+            { error: 'Failed to process webhook', details: errorMessage },
             { status: 500 }
         );
     }
