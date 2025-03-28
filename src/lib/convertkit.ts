@@ -71,7 +71,11 @@ export async function sendNewsletterForPost(post: Post): Promise<{ broadcastId: 
         return { broadcastId };
     } catch (error) {
         console.error('Error sending newsletter:', error);
-        throw new Error(`Failed to create and send newsletter: ${error.message}`);
+        // Safely handle the error message
+        const errorMessage = error instanceof Error
+            ? error.message
+            : 'Unknown error';
+        throw new Error(`Failed to create and send newsletter: ${errorMessage}`);
     }
 }
 
@@ -166,7 +170,9 @@ async function applyCategoryTargeting(broadcastId: number, category: string): Pr
             }
         );
     } catch (error) {
-        console.error('Error applying category targeting:', error);
+        // Safely log the error with proper type checking
+        console.error('Error applying category targeting:',
+            error instanceof Error ? error.message : 'Unknown error');
         // Continue without targeting if this fails
     }
 }
