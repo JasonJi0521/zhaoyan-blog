@@ -186,7 +186,10 @@ export async function getPostContent(pageId: string) {
             sendAsNewsletter: props.SendAsNewsletter?.checkbox || false,
         }
     } catch (error) {
-        console.error('Error getting post content:', error)
-        throw new Error(`Failed to get post content: ${error.message}`)
+        console.error('Error getting post content:', error);
+        const errorMessage = error instanceof Error
+            ? error.message
+            : 'Unknown error';
+        throw new Error(`Failed to get post content: ${errorMessage}`);
     }
 }
