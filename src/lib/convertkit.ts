@@ -19,8 +19,18 @@ interface ConvertKitResponse {
         id: number;
         created_at: string;
         subject: string;
-        [key: string]: any;
+        [key: string]: unknown;
     }
+}
+
+interface ConvertKitTag {
+    id: number;
+    name: string;
+    created_at: string;
+}
+
+interface TagsResponse {
+    tags: ConvertKitTag[];
 }
 
 const CONVERTKIT_API_URL = 'https://api.convertkit.com/v3';
@@ -126,7 +136,7 @@ function createNewsletterContent(post: Post): string {
 async function applyCategoryTargeting(broadcastId: number, category: string): Promise<void> {
     try {
         // Get all tags from ConvertKit
-        const tagsResponse = await axios.get(
+        const tagsResponse = await axios.get<TagsResponse>(
             `${CONVERTKIT_API_URL}/tags`,
             { params: { api_secret: CONVERTKIT_API_SECRET } }
         );
@@ -144,7 +154,7 @@ async function applyCategoryTargeting(broadcastId: number, category: string): Pr
         if (!tagName) return; // No mapping found
 
         // Find the tag ID
-        const tag = availableTags.find((t: any) => t.name.toLowerCase() === tagName.toLowerCase());
+        const tag = availableTags.find((t: ConvertKitTag) => t.name.toLowerCase() === tagName.toLowerCase());
         if (!tag) return; // Tag not found
 
         // Set the recipients to only subscribers with this tag
