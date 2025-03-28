@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getPostContent } from '@/lib/notion';
 import { sendNewsletterForPost } from '@/lib/convertkit';
-import * as crypto from 'crypto';
 
 export async function POST(request: Request) {
     try {
